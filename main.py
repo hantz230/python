@@ -1,3 +1,7 @@
+'''
+
+#tipo de dados
+
 idade = 18
 altura = 1.75
 nome = "João"
@@ -41,12 +45,33 @@ print("tipo : ",type(aluno))
 print("digite seu nome:")
 nomeUser = input()
 
-print("digite sua idade:")
-idadeUser = int(input())
+#usuario
+
+idadeUser = int(input("digite sua idade: "))
 
 print("Quantidade em dinheio ")
 dinheiro = float(input())
 
 Usuario = {nomeUser,idadeUser,dinheiro}
 
-print("seu usuario : ", Usuario  )
+print("seu usuario: ", Usuario  )
+
+print(f"seu usuario: {Usuario}")
+
+#item
+
+item= input("digite o item: ")
+
+quantidade = int(input("digite quantidade: "))
+
+preco = float(input("digite preço: "))
+
+print(f"item: {item}, quantidade: {quantidade}, preco: {preco}")
+
+'''
+
+# calculadora
+
+idade= int(input("digite sua idade: "))
+
+print("a sua idade daqui a 5 anos será : ", idade + 5 )
