@@ -21,29 +21,32 @@
 #__________________________________________________________________
 #função while e switch case
 
-#def exibir_menu():
-#    while True:
-#        print("\n--- MENU PRINCIPAL ---")
- #       print("1. Cadastrar usuário")
- #       print("2. Listar dados")
-#        print("3. Configurações")
- #       print("0. Sair")
+'''
+def exibir_menu():
+    while True:
+        print("\n--- MENU PRINCIPAL ---")
+        print("1. Cadastrar usuário")
+        print("2. Listar dados")
+        print("3. Configurações")
+        print("0. Sair")
 
-#        opcao = input("Escolha uma opção: ")
+        opcao = input("Escolha uma opção: ")
 
- #       match opcao:
- #           case "1":
- #               print("-> Executando: Cadastro de usuário...")
- #           case "2":
- #               print("-> Executando: Listagem de dados...")
-#            case "3":
-#                print("-> Executando: Abrindo configurações...")
-#            case "0":
- #               print("Saindo do sistema. Até logo!")
- #               break  # Quebra o laço 'while' e encerra a função
- #           case _:
- #               print("Opção inválida! Tente novamente.")
+        match opcao:
+            case "1":
+                print("-> Executando: Cadastro de usuário...")
 
+
+            case "2":
+                print("-> Executando: Listagem de dados...")
+            case "3":
+               print("-> Executando: Abrindo configurações...")
+            case "0":
+                print("Saindo do sistema. Até logo!")
+                break  # Quebra o laço 'while' e encerra a função
+            case _:
+              print("Opção inválida! Tente novamente.")
+'''
 
 # Executa a função
 #exibir_menu()
