@@ -1,6 +1,5 @@
 agenda = {}
 
-
 while True:
     print("\n1- Cadastrar")
     print("2- Consultar")
