@@ -1,4 +1,5 @@
 class Produto:
+    total_cadastrado = 0
     def __init__(self, nome, preco, quantidade):
 
         self.nome = nome
