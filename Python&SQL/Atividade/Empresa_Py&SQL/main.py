@@ -7,36 +7,37 @@ def criar_tabela():
         conexao = mysql.connector.connect(**DB_CONFIG)
         cursor = conexao.cursor()
 
+        # REMOVIDA A VÍRGULA SOBRANTE APÓS 'telefone VARCHAR(11)'
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS clientes (
                 id         INT           AUTO_INCREMENT PRIMARY KEY,
                 nome       VARCHAR(100)  NOT NULL,
                 email      VARCHAR(100),
-                telefone     VARCHAR(11),
+                telefone   VARCHAR(11)
             )
         """)
 
         conexao.commit()
-        print("Tabela criada com sucesso!")
+        print("Tabela 'clientes' criada/verificada com sucesso!")
 
     except mysql.connector.Error as erro:
-        print(f"Erro: {erro}")
+        print(f"Erro ao criar tabela: {erro}")
 
     finally:
         if conexao and conexao.is_connected():
             conexao.close()
 
-def cadastrar_cliente( nome, email, telefone):
+def cadastrar_cliente(nome, email, telefone):
     conexao = None
     try:
         conexao = mysql.connector.connect(**DB_CONFIG)
         cursor = conexao.cursor()
         cursor.execute(
-            "INSERT INTO produtos (nome, email, telefone) VALUES (%s, %s, %s)",
+            "INSERT INTO clientes (nome, email, telefone) VALUES (%s, %s, %s)",
             (nome, email, telefone)
         )
         conexao.commit()
-        print(f"Produto '{nome}' cadastrado.")
+        print(f"Cliente '{nome}' cadastrado.")
     except mysql.connector.Error as erro:
         print(f"Erro ao cadastrar: {erro}")
     finally:
@@ -79,8 +80,9 @@ def atualizar_email(id_cliente, novo_email):
     try:
         conexao = mysql.connector.connect(**DB_CONFIG)
         cursor = conexao.cursor()
+        # CORRIGIDO DE 'cliente' PARA 'clientes'
         cursor.execute(
-            "UPDATE cliente SET email = %s WHERE id = %s",
+            "UPDATE clientes SET email = %s WHERE id = %s",
             (novo_email, id_cliente)
         )
         conexao.commit()
@@ -102,17 +104,16 @@ def excluir_cliente(id_cliente):
         cursor.execute("SELECT nome FROM clientes WHERE id = %s", (id_cliente,))
         cliente = cursor.fetchone()
         if not cliente:
-            print(f"cliente com id {id_cliente} não encontrado.")
+            print(f"Cliente com id {id_cliente} não encontrado.")
             return
         cursor.execute("DELETE FROM clientes WHERE id = %s", (id_cliente,))
         conexao.commit()
-        print(f"cliente '{cliente[0]}' excluído com sucesso.")
+        print(f"Cliente '{cliente[0]}' excluído com sucesso.")
     except mysql.connector.Error as erro:
         print(f"Erro ao excluir: {erro}")
     finally:
         if conexao and conexao.is_connected():
             conexao.close()
-
 
 # --- Uso ---
 def menu():
@@ -129,8 +130,8 @@ def menu():
 
         if opcao == "1":
             nome = input("Nome: ")
-            email = input("email: ")
-            telefone = input("telefone: ")
+            email = input("Email: ")
+            telefone = input("Telefone: ")
             cadastrar_cliente(nome, email, telefone)
         elif opcao == "2":
             listar_clientes()
@@ -138,19 +139,18 @@ def menu():
             termo = input("Buscar por nome: ")
             buscar_cliente(termo)
         elif opcao == "4":
-            pid = int(input("ID do produto: "))
+            cid = int(input("ID do cliente: "))
             novo = input("Novo email: ")
-            atualizar_email(pid, novo)
+            atualizar_email(cid, novo)
         elif opcao == "5":
-            pid = int(input("ID do produto: "))
-            excluir_cliente(pid)
+            cid = int(input("ID do cliente: "))
+            excluir_cliente(cid)
         elif opcao == "0":
             print("Encerrando...")
             break
         else:
             print("Opção inválida!")
 
-#--- Chamado das funções ---
-criar_tabela()          #executar uma unica vez
-
-menu()                   #executa de modo recorrente
+# --- Chamado das funções ---
+criar_tabela()  # Agora a tabela será criada corretamente!
+menu()
