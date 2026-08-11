@@ -1,0 +1,46 @@
+create database banco;
+use banco;
+
+create table produtos(
+id int auto_increment primary key,
+nome varchar(100),
+preco decimal(10,2),
+quantidade int,
+categoria varchar(50)
+);
+
+insert into produtos(nome, preco, quantidade, categoria) VALUES
+('Pato', 250.29, 25, 'Animais'),
+('Jogo', 100.21, 100, 'Jogos'),
+('bola', 50.00, 1, 'esporte'),
+('Roblox', 99.10, 999, 'Jogos'),
+('moto', 10.21, 10, 'esporte');
+
+select * from produtos;
+
+select nome, preco from produtos;
+
+drop database loja1;
+
+select * from produtos where categoria = 'Jogos';
+
+select * from produtos where nome like 'A%';
+select * from produtos where nome like '%A';
+select * from produtos where nome like '%A%';
+
+select * from produtos where  preco > 50.00;
+
+select * from produtos where preco between 20 and 100.00;
+
+select nome, preco from produtos
+order by preco desc;
+
+select nome, preco from produtos
+order by preco desc
+limit 2 ;
+
+select count(*) from Produtos;
+select avg ( preco) from produtos;
+select max( preco) ,min(preco) from produtos;
+
+select sum(preco*quantidade)from produtos;
