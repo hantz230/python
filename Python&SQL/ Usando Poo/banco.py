@@ -1,5 +1,5 @@
-import mysql
-
+import mysql.connector
+from config import DB_CONFIG
 
 def criar_tabela():
     conexao = None

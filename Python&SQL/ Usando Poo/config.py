@@ -4,5 +4,5 @@ DB_CONFIG = {
     "password": "root",
     "database": "loja",
     "raise_on_warnings": True,
-    "port": 3307
+    "port": 3306
 }

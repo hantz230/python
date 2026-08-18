@@ -1,2 +1,2 @@
-create database galpao;
-use galpao;
+create database loja;
+use loja;

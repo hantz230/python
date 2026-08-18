@@ -1,17 +1,20 @@
 import mysql.connector
 from config import DB_CONFIG
+from models import Produto
+import banco
 
-def cadastrar_produto(nome, preco, quantidade, categoria):
+
+def cadastrar_produto(produto: Produto):
     conexao = None
     try:
         conexao = mysql.connector.connect(**DB_CONFIG)
         cursor = conexao.cursor()
         cursor.execute(
             "INSERT INTO produtos (nome, preco, quantidade, categoria) VALUES (%s, %s, %s, %s)",
-            (nome, preco, quantidade, categoria)
+            produto.converte_tupla()
         )
         conexao.commit()
-        print(f"Produto '{nome}' cadastrado.")
+        print(f"Produto {produto.nome} cadastrado.")
     except mysql.connector.Error as erro:
         print(f"Erro ao cadastrar: {erro}")
     finally:
@@ -24,8 +27,7 @@ def listar_produtos():
         conexao = mysql.connector.connect(**DB_CONFIG)
         cursor = conexao.cursor()
         cursor.execute("SELECT * FROM produtos ORDER BY nome")
-        for p in cursor.fetchall():
-            print(f"{p[0]} | {p[1]} | R${p[2]:.2f} | Qtd: {p[3]} | {p[4]}")
+        return [Produto.reverte_tupla(linha) for linha in cursor.fetchall()]
     except mysql.connector.Error as erro:
         print(f"Erro ao listar: {erro}")
     finally:
@@ -41,8 +43,7 @@ def buscar_produto(termo):
             "SELECT * FROM produtos WHERE nome LIKE %s ORDER BY nome",
             (f"%{termo}%",)
         )
-        for p in cursor.fetchall():
-            print(f"{p[0]} | {p[1]} | R${float(p[2]):.2f} | Qtd: {p[3]} | {p[4]}")
+        return [Produto.reverte_tupla(linha) for linha in cursor.fetchall()]
     except mysql.connector.Error as erro:
         print(f"Erro ao buscar: {erro}")
     finally:
