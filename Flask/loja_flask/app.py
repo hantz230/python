@@ -15,11 +15,11 @@ def sobre():
 
 @app.route("/produto/<int:id>")
 def produto(id):
-    return render_template("produto.html", id=id)
+    return render_template("produto.html")
 
 @app.route("/categoria/<nome>")
 def categoria(nome):
-    return render_template("categoria.html", nome=nome)
+    return render_template("categoria.html")
 
 @app.route("/produtos")
 def produtos():
