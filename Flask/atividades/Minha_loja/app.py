@@ -2,6 +2,14 @@
 from flask import Flask, render_template
 app = Flask(__name__)
 
+lista = [
+    {"id": 1, "nome": "brouwne", "preco": 20.00, "categoria": "doce", "quantidade": 10},
+    {"id": 2, "nome": "Morango do amor", "preco": 16.99, "categoria": "doce", "quantidade": 5},
+    {"id": 3, "nome": "milk shake", "preco": 10.00, "categoria": "bebida", "quantidade": 8},
+    {"id": 4, "nome": "Bolo de cenora", "preco": 10.00, "categoria": "doce", "quantidade": 3},
+    {"id": 5, "nome": "American coffee", "preco": 08.00, "categoria": "bebida", "quantidade": 12},
+    {"id": 6, "nome": "Capuccino", "preco": 12.00, "categoria": "bebida", "quantidade": 0}
+]
 #define a rota principal
 @app.route("/")
 
@@ -14,19 +22,28 @@ def sobre():
     return render_template("sobre.html")
 
 @app.route("/produto/<int:id>")
-def produto(id):
-    return render_template("produto.html", id=id)
+def detalhe_produto(id):
+    produto = None
+
+    for p in lista:
+        if p["id"] == id:
+            produto = p
+            break
+    return render_template("detalhe.html", id=id, produto=produto)
 
 @app.route("/produtos")
 def produtos():
-    lista = [
-        {"nome": "brouwne", "preco": 20.00,"categoria": "doce"},
-        {"nome": "Morango do amor", "preco": 16.99,"categoria": "doce"},
-        {"nome": "milk shake", "preco": 10.00,"categoria": "bebida"},
-        {"nome": "Bolo de cenora", "preco": 10.00, "categoria": "doce"},
-        {"nome": "American coffee", "preco": 08.00, "categoria": "bebida"},
-    ]
+
     return render_template("produtos.html", produtos=lista)
+
+@app.route("/catalogo")
+def catalogo():
+    return render_template("catalogo.html", produtos=lista)
+
+@app.route("/categoria/<nome>")
+def categoria(nome):
+    produtos_filtrados = [produto for produto in lista if produto["categoria"] == nome]
+    return render_template("catalogo.html", produtos=produtos_filtrados)
 
 #Inicia o servidor Flask
 if __name__ == "__main__":
