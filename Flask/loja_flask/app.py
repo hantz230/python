@@ -23,7 +23,12 @@ def categoria(nome):
 
 @app.route("/produtos")
 def produtos():
-    return render_template("produtos.html")
+    lista = [
+        {"nome": "Notebook", "preco": 3499.00,"categoria": "Eletronicos"},
+        {"nome": "Mouse", "preco": 89.00,"categoria": "Eletronicos"},
+        {"nome": "Teclado", "preco": 249.00,"categoria": "Eletronicos"},
+    ]
+    return render_template("produtos.html", produtos=lista)
 
 #Inicia o servidor Flask
 if __name__ == "__main__":
