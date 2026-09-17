@@ -1,0 +1,20 @@
+<body>
+
+<nav>
+     <a href="{{url_for('index')}}">Inicio</a>
+     <a href="{{url_for('produtos')}}">Itens</a>
+     <a href="{{url_for('sobre')}}">Sobre</a>
+     <a href="{{url_for('catalogo')}}">Catalogo</a>
+</nav>
+
+    {% if item %}
+        {% if item.disponivel== False %}
+            <p style="color: red"><strong>Item fora estoque</strong></p>
+        {% else %}
+            <p style="color: green"><strong>Item em estoque</strong></p>
+        {%endif%}
+    {%else%}
+        <h1>Item não encontrado</h1>
+    {%endif%}
+
+</body>

@@ -1,0 +1,34 @@
+<body>
+
+<nav>
+    <a href="{{url_for('index')}}">Inicio</a>
+    <a href="{{url_for('produtos')}}">Cardapio</a>
+    <a href="{{url_for('sobre')}}">Sobre</a>
+    <a href="{{url_for('catalogo')}}">Catalogo</a>
+</nav>
+<H1>Lista de itens</H1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Preço</th>
+        <th>Tipo</th>
+        <th>Disponivel</th>
+        <th>Ação</th>
+    </tr>
+    {%for i in item %}
+    {% if i.disponivel == 0 %}
+        <tr style="background-color: red">
+        {% else %}
+           <tr style="background-color: green">
+        {%endif%}
+        <td>{{ loop.index }}</td>
+        <td>{{ i.nome }}</td>
+        <td>R$: {{ "%2.f"|format(i.preco) }}</td>
+        <td>Tipo: {{ i.tipo }}</td>
+        <td>Disponivel: {{ i.disponivel }}</td>
+        <td><a href="{{url_for('detalhe_produto', id=i.id)}}">Detalhes</a></td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
